@@ -1,0 +1,10 @@
+[jenkins_master]
+13.60.196.125
+
+[jenkins_agent]
+13.61.100.198
+
+[ansible_controller] 
+13.53.42.96
+
+Jenkins Master: http://13.60.196.125:8080
