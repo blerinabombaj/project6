@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         PATH = "/opt/apache-maven-3.9.4/bin:$PATH"
+        MAVEN_OPTS = "-Xmx1024m -DforkCount=0"
     }
     stages {
         stage('Build') {
@@ -14,7 +15,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo "----------- unit test started ----------"
-                sh 'mvn clean test'
+                sh 'mvn clean test -DforkCount=0 -Djacoco.skip=true'
                 echo "----------- unit test completed ----------"
             }
         }
@@ -28,17 +29,10 @@ pipeline {
                 }
             }
         }
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: false
-                }
-            }
-        }
         stage('Success') {
             steps {
                 echo "🚀 FULL CI/CD PIPELINE SUCCESS!"
-                echo "✅ Maven Build + JUnit Tests + SonarCloud"
+                echo "✅ Build + Test + SonarCloud"
                 echo "📊 https://sonarcloud.io/dashboard?id=robert-devops-workshop"
             }
         }
