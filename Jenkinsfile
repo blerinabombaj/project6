@@ -18,12 +18,12 @@ pipeline {
             steps{
                 echo "----------- unit test started ----------"
                 sh '''
-                    mvn clean test surefire-report:report \
-                      -DforkCount=1 \
-                      -DreuseForks=false \
-                      -Dmaven.surefire.jvmArgs="-Xmx2048m"
+                    mvn clean test -DskipTests=false \
+                      -DforkCount=0 \
+                      -Dmaven.javadoc.skip=true \
+                      -Djacoco.skip=true
                 '''
-                 echo "----------- unit test Complted ----------"
+                 echo "----------- unit test completed ----------"
             }
         }
 
