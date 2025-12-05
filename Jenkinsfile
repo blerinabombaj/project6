@@ -17,7 +17,12 @@ pipeline {
         stage("test"){
             steps{
                 echo "----------- unit test started ----------"
-                sh 'mvn test -DforkCount=1 -DreuseForks=false -Xmx2048m surefire-report:report'
+                sh '''
+                    mvn clean test surefire-report:report \
+                      -DforkCount=1 \
+                      -DreuseForks=false \
+                      -Dmaven.surefire.jvmArgs="-Xmx2048m"
+                '''
                  echo "----------- unit test Complted ----------"
             }
         }
