@@ -1,5 +1,3 @@
-cd ~/Desktop/DevOps-Project-06
-cat > Jenkinsfile << 'EOF'
 def registry = 'https://satishk.jfrog.io'
 def imageName = 'satishk.jfrog.io/satish-docker-local/sample_app'
 def version   = '2.1.2'
@@ -30,13 +28,11 @@ pipeline {
 
         stage('SonarQube analysis') {
             environment {
-              scannerHome = tool 'SonarScanner'  // Changed to standard name
+              scannerHome = tool 'SonarScanner'
             }
             steps{
-            withSonarQubeEnv('SonarCloud') {  // Changed server name
-              sh "${scannerHome}/bin/sonar-scanner \\
-                -Dsonar.projectKey=robert-devops-workshop \\
-                -Dsonar.organization=blerinabombaj"
+            withSonarQubeEnv('SonarCloud') {
+              sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=robert-devops-workshop -Dsonar.organization=blerinabombaj"
             }
             }
         }
@@ -111,4 +107,3 @@ pipeline {
     }  
     }
 }
-EOF
